@@ -25,9 +25,6 @@ function getComputerMove(computerMove) {
   return computerMove || randomPlay();
 }
 
-// var test = getComputerMove();
-// console.log("This is the computer move --- ", test);
-
 // will need to play to five
 function startGame() {
   alert("Lets player Rock, Paper, Scissors");
@@ -39,13 +36,17 @@ function startGame() {
   while(playerScore < 5 && computerScore < 5) {
     var playerMove = getPlayerMove();
     var computerMove = getComputerMove();
-    // console.log("PlayerMove --- ", playerMove);
-    // console.log("ComputerMove --- ", computerMove);
-    playerScore = 6;
-    computerScore = 6;
+    var winner = checkForWinner(playerMove, computerMove);
 
-
-
+    if (winner === "player"){
+      playerScore ++;
+      alert("The player won that round with - " + playerMove + "against - " + computerMove + "-------" + "The scores are --- Player " + playerScore + "Computer score --- " + computerScore);
+    } else if (winner === "computer"){
+      computerScore ++;
+      alert("The computer won that round with - " + computerMove + "against - " + playerMove + "-------" + "The scores are --- Player " + playerScore + "Computer score --- " + computerScore);
+    } else {
+      alert("That was a tie with - " + playerMove + computerMove)
+    }
   }
 
 }
@@ -54,13 +55,16 @@ function startGame() {
 function checkForWinner(playerMove, computerMove) {
   var winner;
 
-  if(playerMove === computerMove){
+  if (playerMove === computerMove){
     winner = "tie";
-    return winner;
+  } else if((playerMove === "rock" && computerMove === "scissors") || (playerMove === "paper" && computerMove === "rock") || (playerMove === "scissors" && computerMove === "paper")) {
+    winner = "player";
+  } else {
+    winner = "computer"
   }
+
+  return winner;
 }
 
-var test = checkForWinner("rock", "rock");
-console.log(test)
 
 startGame()
